@@ -3,7 +3,7 @@
 Plugin Name: 500px WP Publisher
 Plugin URI: http://danosipov.com/500
 Description: Import shots from 500px profile as Wordpress posts
-Version: 1.0
+Version: 1.1
 Author: Dan Osipov
 Author URI: http://danosipov.com/
 License: MIT
@@ -179,5 +179,19 @@ function fhp_photosort_comparator($p1, $p2) {
 
 if (is_admin()) {
 	require_once('fivehundredpx_admin.php');
+}
+
+// Instead of cron (although I would prefer cron, but WP likes scheduled events):
+register_activation_hook(__FILE__, 'fhp_activation');
+add_action('fhp_run', 'fhp_run');
+
+function fhp_activation() {
+	wp_schedule_event( time(), 'daily', 'fhp_run');
+}
+
+register_deactivation_hook(__FILE__, 'fhp_deactivation');
+
+function fhp_deactivation() {
+	wp_clear_scheduled_hook('fhp_run');
 }
 ?>

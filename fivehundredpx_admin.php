@@ -89,17 +89,8 @@ function fivehundredpx_options(){
 				<tr><td valign="top" colspan="2">
 					<?php 
 						$last_update = get_option('fivehundredpx_last_update');
-						if (empty($last_update)) { 
-					?>
-						<p>Remember to add the following call to crontab:<br />
-						<b>00 12 * * * php <?php echo WP_CONTENT_DIR
-							. '/plugins/fivehundredpx-wp-publisher/cron.php'; ?></b><br />
-						For more information, see <a href="http://linuxconfig.org/linux-cron-guide">this guide</a>	
-						</p>
-					<?php
-						} else {
-							echo '<p>Last run at ' . date('H:i:s \o\n m/d/Y', $last_update);
-						}
+
+						echo '<p>Last run at ' . date('H:i:s \o\n m/d/Y', $last_update);
 					?>
 				</td></tr>
 				
